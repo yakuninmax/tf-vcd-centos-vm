@@ -122,11 +122,13 @@ resource "null_resource" "initial-config" {
     }
 
     inline = [
-                "yum -y install cloud-utils-growpart",
+                "dnf -y install cloud-utils-growpart",
+                "dnf -y install bash-completion",
                 "growpart /dev/sda 2",
                 "pvresize /dev/sda2",
                 "lvextend -r -l +100%FREE /dev/cs/root",
-                "yum -y update"
+                "dnf clean all",
+                "dnf -y update"
              ]
   }
 }
