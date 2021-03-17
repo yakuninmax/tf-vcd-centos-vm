@@ -60,7 +60,7 @@ variable "nics" {
     ip             = string
   }))
 
-  description = "Additional VM hard drives"  
+  description = "VM NICs"  
 }
 
 variable "ram" {
