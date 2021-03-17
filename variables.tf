@@ -106,3 +106,9 @@ variable "vapp" {
   type        = string
   description = "vAPP name"
 }
+
+variable "zabbix_agent" {
+  type        = bool
+  description = "Install Zabbix agent"
+  default     = false
+}

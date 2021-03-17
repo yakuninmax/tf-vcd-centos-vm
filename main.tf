@@ -131,3 +131,30 @@ resource "null_resource" "initial-config" {
              ]
   }
 }
+
+# Install Zabbix agent
+resource "null_resource" "zabbix-agent" {
+  count = var.zabbix_agent == true ? 1 : 0
+  depends_on = [ null_resource.initial-config ]
+
+  provisioner "remote-exec" {
+    
+    connection {
+      type        = "ssh"
+      user        = "root"
+      password    = vcd_vapp_vm.vm.customization[0].admin_password
+      host        = var.allow_external_ssh == true ? var.external_ip != "" ? var.external_ip : data.vcd_edgegateway.edge.external_network_ips[0] : vcd_vapp_vm.vm.network[0].ip
+      port        = var.allow_external_ssh == true ? var.external_ssh_port != "" ? var.external_ssh_port : random_integer.ssh-port[0].result : 22
+      script_path = "/tmp/terraform_%RAND%.sh"
+      timeout     = "15m"
+    }
+
+    inline = [
+                "rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/8/x86_64/zabbix-release-5.0-1.el8.noarch.rpm",
+                "yum clean all",
+                "yum -y install zabbix-agent",
+                "firewall-cmd --add-service zabbix-agent",
+                "systemctl enable --now zabbix-agent"
+             ]
+  }
+}
