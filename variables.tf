@@ -52,11 +52,6 @@ variable "media" {
 variable "name" {
   type        = string
   description = "VM name"
-  
-  validation {
-    condition     = length(var.name) <= 15
-    error_message = "Length must be less or equal 15 characters."
-  }
 }
 
 variable "nics" {
