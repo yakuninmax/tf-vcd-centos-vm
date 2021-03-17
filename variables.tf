@@ -76,14 +76,14 @@ variable "ram" {
 variable "root_password" {
   type        = string
   description = "Root password"
-  default     = null
+  default     = ""
   sensitive   = true
 }
 
 variable "storage_profile" {
   type        = string
   description = "VM storage profile"
-  default     = null
+  default     = ""
 }
 
 variable "system_disk_size" {

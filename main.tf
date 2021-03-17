@@ -7,7 +7,7 @@ resource "vcd_vapp_vm" "vm" {
   memory          = var.ram * 1024
   cpus            = var.cpus
   cpu_cores       = var.cores_per_socket
-  storage_profile = var.storage_profile
+  storage_profile = var.storage_profile != "" ? var.storage_profile : null
   computer_name   = var.name
 
   override_template_disk {
@@ -30,8 +30,8 @@ resource "vcd_vapp_vm" "vm" {
   customization {
     enabled                    = true
     allow_local_admin_password = true
-    auto_generate_password     = var.root_password != null ? false : true
-    admin_password             = var.root_password != null ? var.root_password : null
+    auto_generate_password     = var.root_password != "" ? false : true
+    admin_password             = var.root_password != "" ? var.root_password : null
   }
 }
 
