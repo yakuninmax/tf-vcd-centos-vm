@@ -107,8 +107,8 @@ variable "vapp" {
   description = "vAPP name"
 }
 
-variable "zabbix_agent" {
-  type        = bool
-  description = "Install Zabbix agent"
-  default     = false
+variable "zabbix_server" {
+  type        = ""
+  description = "Zabbix server address. If present - install and configure Zabbix agent."
+  default     = ""
 }
