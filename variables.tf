@@ -108,7 +108,7 @@ variable "vapp" {
 }
 
 variable "zabbix_server" {
-  type        = ""
-  description = "Zabbix server address. If present - install and configure Zabbix agent."
+  type        = string
+  description = "Zabbix server IP address. If present - install and configure Zabbix agent."
   default     = ""
 }
