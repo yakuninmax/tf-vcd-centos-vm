@@ -62,7 +62,7 @@ resource "vcd_inserted_media" "media" {
 
 # Get random SSH port
 resource "random_integer" "ssh-port" {
-  count = var.allow_external_ssh == true ? 1 : 0
+  count = var.allow_external_ssh == true ? var.external_ssh_port == "" ? 1 : 0 : 0
   
   min = 40000
   max = 49999
